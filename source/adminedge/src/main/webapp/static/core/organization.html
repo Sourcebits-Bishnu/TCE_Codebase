@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ClassEdge</title>   
+    </head>
+    <body>
+
+    <table style="width:300px">
+    <tr>
+    	<td>ID</td>
+    	<td style="width:40px;"></td>
+    	<td><input type="text" class="width280" value="" name="c_orgId" id="c_orgId" ></td>
+    </tr>
+    <tr>
+    	<td>Name</td>
+    	<td style="width:40px;"></td>
+    	<td><input type="text" class="width280" value="" name="c_orgName" id="c_orgName" ></td>
+    </tr>
+    <tr>
+    	<td><button type="button" class="primary-btn" id="createBtn">Create</button></td>
+    	<td style="width:40px;"></td>
+    	<td><button type="button" class="primary-btn" id="closeBtn">Close</button></td>
+    </tr>
+    </table>
+    
+    <script type="text/javascript">
+    	jQuery(function () {
+			jQuery('#createBtn').on("click",function(){
+					
+					var orgdata = {
+							"orgId" : document.getElementById("c_orgId").value,
+							"orgName": document.getElementById("c_orgName").value
+						}
+					
+					console.log("--",orgdata);
+	        		ClassEdgeFn.callAjax("/tce-auth-api/1/api/1/admin/organization",JSON.stringify(orgdata),
+	            				{  targetFn : function (result) { 
+	            						alert("successfully created org"); console.log( "My org = ", result);
+	            						ClassEdgeFn.closeDialog();
+	            						} 
+	        					}
+	            	);
+	            });
+			
+			jQuery('#closeBtn').on("click",function(){ 
+				ClassEdgeFn.closeDialog();
+			});
+         }); 
+	</script>
+	   
+    </body>
+</html>

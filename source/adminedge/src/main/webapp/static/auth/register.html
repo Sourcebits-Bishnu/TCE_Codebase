@@ -1,0 +1,212 @@
+<link rel="stylesheet" type="text/css" href="/ce-static/ui-theme-01/css/global.css" />
+<link rel="stylesheet" type="text/css" href="/ce-static/common/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/ce-static/ui-theme-01/css/jquery-ui-1.9.2.custom.min.css" />
+<link rel="stylesheet" type="text/css" href="/ce-core-app/0/web/1/auth/login.css" />
+<script type="text/javascript" src="/ce-static/common/js/jquery-latest.min.js"></script>
+<script type="text/javascript" src="/ce-static/ui-theme-01/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="/ce-static/common/js/jsrender.min.js" charset="utf-8"></script>
+<script type='text/javascript' src='/ce-static/common/js/jquery.simplemodal.js'></script>
+<script type="text/javascript" src="/ce-static/common/js/custom.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+    jQuery(function () {
+    
+        console.log(" from localStorage  ",localStorage);
+    
+        //load captcha
+        function loadCaptcha(data) {
+            console.log("--"+data.captcha);
+            var src = "data:image/jpeg;base64,";
+            src += data.captcha;
+            var newImage = document.createElement('img');
+            newImage.src = src;
+            newImage.width = "200";
+            newImage.height = "50";
+            document.querySelector('#imageContainer').innerHTML = newImage.outerHTML;           
+        }
+        
+        ClassEdgeFn.callAjax("/auth/captcha",null,{targetFn : loadCaptcha,httpMethod:'GET',isPrivate : false});
+        
+        function validate(formName){        
+            var password=document.getElementById(formName).password.value;
+            var cpassword=document.getElementById(formName).cpassword.value;
+            var userName=document.getElementById(formName).userName.value;      
+            var passportId = document.getElementById("studentId").value;
+
+            var regN = /^[A-Za-z ]+$/;
+            var regU = /^[0-9A-Za-z.@]+$/;
+            var regPhone = /^[0-9(\)\+\ \-]+$/;
+
+            var flag = true;
+            var test = "";
+                    
+            if ((userName == "") ||  (userName.charAt(0) == ' ')) {
+                test = test
+                + "  - The User Name field cannot be blank\n";
+                flag = false;           
+            }
+            
+        
+            if(!regU.test(userName)){
+                test = test
+                + "  - The User Name field is not a valid name\n";
+                flag = false;
+            }
+            
+            if(password==''||cpassword==''||password!=cpassword){
+                test = test
+                + "  - the Password and Confirm Password donot match\n";
+                flag = false;
+            }
+            
+            if(passportId==''){
+                test = test
+                + "  - Student Passport cannot be blank\n";
+                flag = false;
+            }
+            return {flag:flag,test:test};
+        }
+        
+        jQuery('#saveBtn').on("click",function(){
+         var formName = 'userRegistrationForm';
+            /*
+           
+            var validateData=validate(formName);
+            if(!validateData.flag){
+                var test = "Following validation issues were found: \n\n";
+                test+=validateData.test;
+                alert(test);
+                return;
+            }       
+*/
+            var formData = {
+                        firstName : document.getElementById(formName).firstName.value,
+                        lastName : document.getElementById(formName).lastName.value,
+                        password : document.getElementById(formName).password.value,
+                        cpassword : document.getElementById(formName).cpassword.value,
+                        userName : document.getElementById(formName).userName.value,                    
+                        textVerify : document.getElementById(formName).captchaText.value,
+                        studentId : document.getElementById(formName).studentId.value                   
+                    };
+            var settings = {
+                    width : 400,
+                    height : 300,
+                    title : "Status",
+                    template:'/auth/register-status.html',
+                    apiProps : {isPrivate : false}
+                };
+            ClassEdgeFn.showDialog("/user/register",formData,settings);
+        });
+    
+    });
+    
+     
+    
+
+    function registrationCheck(url,curNode){
+        //console.log(" curNode ",curNode.value);
+        var toUpdateNode=curNode.parentNode.parentNode.childNodes;
+        //console.log(" toUpdateNode ",toUpdateNode);
+        jQuery.ajax({
+            type : 'GET',
+            url : url,
+            data : {userPassportId:curNode.value},
+            success : function(content) {
+                console.log( "content. ",content.status);
+                if(content.status==0){
+                    var user=JSON.parse(content.userinfo);
+                    document.getElementById("firstName").value=user.firstName;
+                    document.getElementById("lastName").value=user.lastName;
+                }else if(content.status==1){
+                    alert('This Id has not find.');
+                }else{
+                    alert('This Id has already Registered.');
+                }
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                alert("ERROR : "+textStatus);
+            }
+        });
+    }
+
+
+</script>
+
+<!--BO Main Content -->
+<div class="center"> 
+<div class="center-inner"> 
+<div class="resouses_darkbluetop"> <span id="portlet-icon"></span>&nbsp;<span class="portlet-title-text">Registration Form</span> </div> 
+<div class=" resourse_bg">
+<div class="marginLeft20 whiteBg border" style="min-width:400px;">
+<form id="userRegistrationForm" >
+    <div class="padding ">
+        <div class="floatleft ">
+            <h2 class="title2">Register as Student</h2>
+        </div>
+        <div class="clearBoth"></div>
+
+        <div class="floatleft marginTop">
+            <span class="floatleft marginLeft20">
+               <label class="bold"> First Name </label> <br>
+               <input type="text" class="width280" value="" name="firstName" id="firstName" >
+            </span>
+            <span class="floatleft marginLeft20">
+               <label class="bold"> Last Name </label> <br>
+               <input type="text" class="width280" value="" name="lastName" id="lastName" >
+            </span>
+       </div>
+       <div class="clearBoth"></div>
+       <div class="floatleft marginTop ">
+            <span class="floatleft marginLeft20">
+               <label class="bold"> Student Passport </label> <br>
+               <input type="text" class="width280" value="" name="studentId" id="studentId" readonly="readonly">
+              </span>
+              <span class="floatleft marginLeft20">
+               <label class="bold"> Desired User ID</label> <br>
+               <input type="text" class="width280" value="" name="userName" id="userName">
+              </span>              
+             </div>
+
+             <div class="clearBoth"></div>
+
+             <div class="floatleft marginTop">
+              <span class="floatleft marginLeft20">
+               <label class="bold"> Password </label> <br>
+               <input type="password" class="width280" name="password" id="password" value="">
+              </span>
+               <span class="floatleft marginLeft20">
+               <label class="bold"> Confirm Password </label> <br>
+               <input type="password" class="width280" name="cpassword" id="cpassword">
+              </span>
+             </div>
+            
+             <div class="clearBoth"></div>
+
+            <div class="floatleft marginTop">
+              <span class="floatleft marginLeft20" id="imageContainer">CAPTCHA</span>
+              <input type="text" class="width280" value="" name="captchaText" id="captchaText">
+            </div>
+           
+             <div class="clearBoth"></div>
+             <div class="clearBoth marginBottom marginTop border-bottom"></div>
+             <div class="clearBoth"></div>
+
+             <div id="btnPanel" class="floatleft marginTop">
+                <span class="floatleft marginLeft20">
+                
+                <a class="primary-btn" id="saveBtn">Register</a>
+                </span>
+                <span class="floatleft marginLeft20">
+                    <a href="/web/guest/home" class="primary-btn" id="cancelBtn">Cancel</a>
+                </span>
+            </div>
+            <div class="clearBoth"></div>
+       </div>
+    </form>
+   </div>
+</div> 
+<div class=" resourse_bottom"></div> 
+</div> 
+</div>
+
+

@@ -1,0 +1,99 @@
+/*==== Imports ====*/
+@import url('animated.css');
+
+/*=============================== Login =============================== */
+.loginfixed{position:fixed;width:100%;}
+
+#gradient{width: 100%;height: 100%; background: url(../images/login-bg.png) bottom no-repeat;background-size:cover; position:relative;}
+#gradient:before{ content:""; background:rgba(60,128,189,.85); width:100%; height:100%; position:absolute; top:0; left:0;}
+.loginsec{ display:table; position:relative;}
+.login-inner{ display:table-cell; vertical-align:middle; text-align:center;}
+.login-innersec{ width:380px;background:rgba(225,225,225,.3); margin:auto; padding:15px 30px 0; position:relative;}
+.login-innersec.fadeInUp{-webkit-animation: fadeInUp 1s ease;animation-name: fadeInUp;animation-duration: 1s;}
+.login-innersec.shake{-webkit-animation: shake 1s ease;animation-name: shake;animation-duration: 1s;}
+.login-innersec.fadeOutDown{-webkit-animation: fadeOutDown 1s ease;animation-name: fadeOutDown;animation-duration: 1s;}
+
+.logosec{ margin:0 0 20px;}
+.logosec .person{border-radius:50%;-webkit-border-radius: 50%;-moz-border-radius:50%;}
+.linktext{color:#fff;padding:15px 0;display:block;}
+
+.edge-full{position:absolute;bottom:120px;top:190px;width:1400px;}
+.edge-limited .class-selection{ height:310px;}
+
+.class-selection{display:inline-block; width:32%;margin:0 0.52%;background:rgba(225,225,225,.3);padding:20px 25px;vertical-align:top;color:#fff;overflow:auto;height:100%;}
+.class-selectionbi{ width:48.5%;}
+
+.divisionlist li, .subjectlist li{margin-bottom:10px;}
+.divisionlist-classes li{width: 48%; display: inline-block;}
+.educationlist{margin:10px 0 15px;}
+.educationlist li{display:inline-block;margin-right:5px;}
+.educationlist li a{color:#fff;width:30px;height:30px;line-height:28px; border:1px solid #fff; border-radius: 30px;-webkit-border-radius: 30px;-moz-border-radius:30px;text-align:center;display:block;}
+.divisionlist li a{border:1px solid #fff;text-align:center;display:block;color:#fff;padding:8px 10px;}
+.tl{margin-top:10px;}
+.tl li a{text-align:left;}
+.educationlist li a:hover, .educationlist li.active a, .divisionlist li a:hover, .divisionlist li.active a{color:#1a6ab1;background:#fff;}
+
+.subjectlist li span{width:30px;height:30px;border:1px solid #fff; border-radius: 30px;-webkit-border-radius: 30px;-moz-border-radius:30px;display:inline-block;background:url(../images/subject-icons.png) no-repeat;vertical-align:middle;margin-right:10px;}
+.subjectlist li span.englit{background-position:0 0;}
+.subjectlist li span.enggra{background-position:-28px 0;}
+.subjectlist li span.math{background-position:-59px 0;}
+.subjectlist li span.sci{background-position:-87px 0;}
+.subjectlist li span.phy{background-position:-117px 0;}
+.subjectlist li span.bio{background-position:-145px 0;}
+.subjectlist li span.chem{background-position:-173px 0;}
+.subjectlist li span.hist{background-position:-203px 0;}
+.subjectlist li span.geo{background-position:-233px 0;}
+.subjectlist li span.eco{background-position:-261px 0;}
+.subjectlist li span.pol{background-position:-290px 0;}
+.subjectlist li span.civics{background-position:-320px 0;}
+.subjectlist li span.hindig{background-position:-350px 0;}
+.subjectlist li span.nocat{background-position:-376px 0;}
+.subjectlist li a{color:#fff;}
+
+.subjectlist li a:hover span.englit, .subjectlist li.active a span.englit{background-position:0 -30px;}
+.subjectlist li a:hover span.enggra, .subjectlist li.active a span.enggra{background-position:-28px -30px;}
+.subjectlist li a:hover span.math, .subjectlist li.active a span.math{background-position:-59px -30px;}
+.subjectlist li a:hover span.sci, .subjectlist li.active a span.sci{background-position:-87px -30px;}
+.subjectlist li a:hover span.phy, .subjectlist li.active a span.phy{background-position:-117px -30px;}
+.subjectlist li a:hover span.bio, .subjectlist li.active a span.bio{background-position:-145px -30px;}
+.subjectlist li a:hover span.chem, .subjectlist li.active a span.chem{background-position:-173px -30px;}
+.subjectlist li a:hover span.hist, .subjectlist li.active a span.hist{background-position:-203px -30px;}
+.subjectlist li a:hover span.geo, .subjectlist li.active a span.geo{background-position:-233px -30px;}
+.subjectlist li a:hover span.eco, .subjectlist li.active a span.eco{background-position:-261px -30px;}
+.subjectlist li a:hover span.pol, .subjectlist li.active a span.pol{background-position:-290px -30px;}
+.subjectlist li a:hover span.civics, .subjectlist li.active a span.civics{background-position:-320px -30px;}
+.subjectlist li a:hover span.hindig, .subjectlist li.active a span.hindig{background-position:-350px -30px;}
+.subjectlist li a:hover span.nocat, .subjectlist li.active a span.nocat{background-position:-376px -30px;}
+.subjectlist li a:hover span, .subjectlist li.active a span{background-color:#fff;}
+
+.userconfirm{position:absolute;bottom:60px;left:50%;margin-left:-110px;}
+.userconfirm button{display:inline-block;width:100px;margin:0 5px;}
+.first-userconfirm{ bottom:20%;}
+
+/* Input field on focus action */
+.login-innersec .field-wrapper{width:100%;margin-bottom:15px;}
+.login-innersec .field-wrapper label{font-size:12px;}
+.login-innersec .field-wrapper label.show{background:none;top:-20px;color:#fff;padding:0;}
+
+/*Login Validations*/
+.errormessage .success, .errormessage .wrong{ position:relative;}
+.errormessage .success input, .errormessage .wrong input{ border: solid 1.5px #018f22; padding-right:30px;background:#fff url(../images/success.png) no-repeat 295px 13px !important;}
+.errormessage .wrong input{ border-color: #ff3b3b;background-image:url(../images/error.png) !important;}
+
+.class-sectionhd{ text-align:center; margin-bottom:20px;}
+.class-sectionhd h3{ font-size:14px; text-transform:uppercase; color:#fff;}
+.edge-limited .view-alloptions{ font-size:14px; color:#fff; margin:20px 5px; line-height:30px; text-transform:lowercase; text-decoration:underline;}
+.edge-fulfill{ display:none;}
+.educationlist-separator{ border-bottom: 1px solid #fff;padding-bottom: 15px;margin-bottom: 10px;}
+.divisionlist-separator{ border-bottom: 1px solid #fff;padding-bottom:12px;margin: 15px 0 15px;}
+/*.divisionlist-separator ~ .divisionlist-separator{ border: none; }*/
+.divisionlist-separator:last-child{ border: none; }
+.divitwo-separator li{ width:48%; float: left; margin-right: 5px;}
+
+@media only screen and (max-width:1399px){
+    .divitwo-separator li {
+        width: 47%;
+        float: left;
+        margin-right: 5px;
+    }
+}

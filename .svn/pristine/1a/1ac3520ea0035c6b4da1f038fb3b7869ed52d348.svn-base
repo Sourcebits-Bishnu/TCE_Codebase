@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app metadata-complete="true" id="WebApp-lessonedge" version="2.5"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" >
+
+  	<display-name>lessonedge</display-name>
+
+  	<!--
+		- Location of the XML file that defines the root application context.
+		- Applied by ContextLoaderServlet.
+	-->
+<!--  
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/config/spring/common-beans.xml</param-value>
+	</context-param>
+
+<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>com.tce.learnedge.web.config.WebConfig</param-value>
+</context-param>
+
+	<listener>
+    	<listener-class>org.springframework.boot.legacy.context.web.SpringBootContextLoaderListener</listener-class>
+	</listener> -->
+<!-- 
+	<servlet>
+        <servlet-name>Custom Dispatcher</servlet-name>
+        <servlet-class>com.liferay.portal.kernel.servlet.PortalDelegateServlet</servlet-class>
+        <init-param>
+            <param-name>servlet-class</param-name>
+            <param-value>com.classedge.common.web.CustomDispatcher</param-value>
+        </init-param>
+        <init-param>
+            <param-name>sub-context</param-name>
+            <param-value>websvc</param-value>
+        </init-param>       
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+<servlet-mapping>
+		<servlet-name>Custom Dispatcher</servlet-name>
+		<url-pattern>/mvc/*</url-pattern>
+	</servlet-mapping>
+     -->
+	<welcome-file-list>
+	    <welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>

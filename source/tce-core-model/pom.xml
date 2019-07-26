@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>tce-core-model</artifactId>
+    <name>tce-core-model</name>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.tce</groupId>
+        <artifactId>classedge</artifactId>
+        <version>0.1.0</version>
+    </parent>
+	
+
+    <dependencies>
+    
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+      
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        
+        <dependency>
+			<groupId>org.springframework.security.oauth.boot</groupId>
+			<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+			<version>${oauth.boot.version}</version>
+		</dependency>
+        
+		<dependency>
+	        <groupId>org.projectlombok</groupId>
+	        <artifactId>lombok</artifactId>	 
+	        <scope>provided</scope>       	        
+    	</dependency>
+    	
+    	<dependency>
+			<groupId>com.tce</groupId>
+			<artifactId>tce-common-model</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+	</dependencies>
+    
+    <build>
+    	<finalName>${project.artifactId}</finalName>
+        <plugins>
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-jar-plugin</artifactId>
+			</plugin> 
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-install-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <phase>package</phase>
+			            <goals>
+			                <goal>install-file</goal>
+			            </goals>
+			            <configuration>
+			                <groupId>${project.groupId}</groupId>
+			                <artifactId>${project.artifactId}</artifactId>
+			                <version>${project.parent.version}</version>
+			                <packaging>jar</packaging>
+			                <file>${basedir}/target/${project.artifactId}.jar</file>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>           
+        </plugins>
+    </build>
+
+</project>

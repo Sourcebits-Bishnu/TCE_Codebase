@@ -1,0 +1,65 @@
+{
+    "name": "Privilege",
+    "version": "100",
+    "ctxlist": [{
+			"id":10,
+            "name": "ClassEdge",
+            "description": "default access for the site.",
+            "privlist": [{
+                    "privId" : 101,
+					"title": "VIEW",
+                    "description": "view access.",
+                    "bit": 1
+                }
+            ]
+        },{
+			"id":20,
+            "name": "Left Menu",
+            "description": "list of modules available.",
+            "privlist": [{
+                    "privId" : 201,
+					"title": "Manage",
+                    "description": "allow use of manage modules.",
+                    "bit": 1
+                },{
+                    "privId" : 202,
+					"title": "About",
+                    "description": "allow use of about modules.",
+                    "bit": 2
+                }
+            ]
+        }, {
+			"id":30,
+            "name": "Users",
+            "description": "Controls functionality of user management",
+            "privlist": [{
+					"privId":301,
+                    "title": "VIEW_USER",
+                    "description": "allow VIEW users.",
+                    "bit": 1
+                }, {
+					"privId":302,
+                    "title": "MODIFY_USER",
+                    "description": "allow modify users.",
+                    "bit": 2
+                }
+            ]
+        }, {
+			"id":31,
+            "name": "Organization",
+            "description": "Controls functionality of organization management",
+            "privlist": [{
+					"privId":311,
+                    "title": "VIEW_ORG",
+                    "description": "allow VIEW organization.",
+                    "bit": 1
+                }, {
+					"privId":312,
+                    "title": "MODIFY_ORG",
+                    "description": "allow modify organization.",
+                    "bit": 2
+                }
+            ]
+        }
+    ]
+}

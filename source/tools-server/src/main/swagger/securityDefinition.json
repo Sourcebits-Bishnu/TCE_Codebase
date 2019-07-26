@@ -1,0 +1,8 @@
+{"tce-auth" :{
+		"type" : "oauth2",
+		"tokenUrl": "/tce-auth-api/0/api/1/sso/token",
+		"flow" : "",
+		"scopes":{}
+		}
+	}
+}

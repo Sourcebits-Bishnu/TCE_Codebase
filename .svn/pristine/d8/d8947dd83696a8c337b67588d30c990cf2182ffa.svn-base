@@ -1,0 +1,15 @@
+<div>
+<table style="width:100%">
+	<tr><td height="10px"></td></tr>
+	<tr><td><b><font color="#FE6700" size="2">{{:statusMsg}}</font></b></td></tr>
+	<tr><td height="10px"></td></tr>
+	<tr><td align="right">{{bluebutton id="closeStatusBtn" name="Close" /}}</td></tr>
+</table>
+</div>
+<script>
+$(document).ready(function(){
+	$('#closeStatusBtn').on("click",function(){
+		closeDialog();
+	});
+});
+</script>

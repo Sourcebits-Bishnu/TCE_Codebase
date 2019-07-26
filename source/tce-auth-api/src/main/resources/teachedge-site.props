@@ -1,0 +1,50 @@
+{    
+    "version": "100",
+    "organization": {"name": "TeachEdge",
+					"orgId":"teachedge-in"},
+    "roleList": [{
+            "name": "School Admin",
+            "description": "Admin User for TeachEdge.",
+            "properties": {
+                "createdFor": "CLASSEDGE SITE ROLE",
+                "defaultRole": "Classedge User"
+            },
+            "type": "organization"
+        }, {
+            "name": "Teacher",
+            "description": "Teacher User",
+            "properties": {
+                "createdFor": "CLASSEDGE SITE ROLE"
+            },
+            "type": "organization"
+        }
+    ],
+    "permList": [{
+            "privilege": "VIEW",
+            "context": "whiteboard",
+            "roles": [{
+                    "name": "Teacher",
+                    "type": "organization"
+                }
+            ],
+            "properties": {
+                "availableOn": "all"
+            },
+            "pageOrder": "1"
+        }, {
+            "privilege": "MODIFY",
+            "context": "whiteboard",
+            "roles": [{
+                    "name": "Teacher",
+                    "type": "organization"
+                }
+            ],
+            "properties": {
+                "availableOn": "all"
+            },
+            "pageOrder": "1"
+        }
+
+    ]
+
+}

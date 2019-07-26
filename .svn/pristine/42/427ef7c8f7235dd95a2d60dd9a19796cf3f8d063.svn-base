@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="/adminedge/static/common/css/dataTables.jqueryui.min.css" />
+<script type="text/javascript" src="/adminedge/static/common/js/jquery.dataTables.min.js"></script>
+<div class="container">
+    <div class="row">	    	
+      	<div class="twelve columns">
+        	<table class="display"	id="mTable" style="width:100%"></table>
+      	</div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">	    	
+      	<div class="twelve columns">
+        	<span style="min-height: 10px;">&nbsp;</span>
+      	</div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">	    	
+      	<div class="two columns"></div>
+      	<div class="eight columns">
+      	<button type="button" class="primary-btn" id="createUsrPPBtn">Create User</button>
+      	</div>
+      	<div class="two columns"></div>
+    </div>
+</div>    
+    <script type="text/javascript">
+    	jQuery(function () {
+    		
+	    		jQuery('#pagetitle').html('Manage Users');
+	    		
+	    		
+	    		var columnDefs = [
+	    		  	{"sTitle": "User Name",	"mData": "username","Width":"30%","aTargets" : [ 0 ], "bSortable" : false },
+	    			{"sTitle": "status",	"mData": "status","Width":"30%","aTargets" : [ 1 ], "bSortable" : false},
+	    			{"sTitle": "login status",	"mData": "loginStatus","Width":"30%","aTargets" : [ 2 ], "bSortable" : false}			
+	    		];
+	    	
+	    		var mTable = ClassEdgeFn.loadTableData('/tce-auth-api/1/api/1/admin/users',columnDefs,
+	    							{tableId:"mTable",paginate : false,rowClick:true,rowClickFn:showUserDetail});
+	
+	    		function showUserDetail(nTr) {
+	    			var aData = mTable.fnGetData(nTr);
+	    			alert(aData);
+	    		}
+	    		
+				jQuery('#createUsrPPBtn').on("click",function(){
+					
+					var settings = {
+		                    width : 500, height : 400, title : "Create User",
+		                    template:'/adminedge/static/core/user.html',
+		                    apiProps : {httpMethod:'GET'}
+		                };
+		            ClassEdgeFn.showDialog("/tce-auth-api/1/api/1/tool/placeholder",null,settings);
+	            });
+         }); 
+	</script>

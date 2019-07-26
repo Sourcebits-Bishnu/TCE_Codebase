@@ -1,0 +1,28 @@
+{
+    "name": "Privilege",
+    "version": "100",
+    "list": [{
+            "name": "Modules",
+            "description": "list of modules available.",
+            "list": [{
+                    "name": "Whiteboard",
+                    "description": "allow use of whiteboard.",
+                    "bit": "1"
+                }
+            ]
+        }, {
+            "name": "Whiteboad",
+            "description": "Controls functionality of whiteboard",
+            "list": [{
+                    "name": "VIEW",
+                    "description": "allow VIEW whiteboard.",
+                    "bit": "1"
+                }, {
+                    "name": "MODIFY",
+                    "description": "allow modify whiteboard.",
+                    "bit": "2"
+                }
+            ]
+        }
+    ]
+}

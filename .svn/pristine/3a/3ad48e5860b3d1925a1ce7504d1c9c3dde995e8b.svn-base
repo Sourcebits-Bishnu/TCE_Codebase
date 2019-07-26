@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<div class="container">
+    <div class="row">	    	
+      	<div class="twelve column">
+        	<table style="width:300px">
+		    <tr>
+		    	<td>UserName</td>
+		    	<td style="width:40px;"></td>
+		    	<td><input type="text" class="width280" value="" name="userName" id="userName" ></td>
+		    </tr>
+		    <tr>
+		    	<td>Password</td>
+		    	<td style="width:40px;"></td>
+		    	<td><input type="text" class="width280" value="" name="password" id="password" ></td>
+		    </tr>
+		    <tr>
+		    	<td>Organization</td>
+		    	<td style="width:40px;"></td>
+		    	<td><select style="min-width:100px; min-height: 40px" name="orgId" id="orgId" ></select></td>
+		    </tr>
+		    <tr>
+		    	<td>Role</td>
+		    	<td style="width:40px;"></td>
+		    	<td><select name="roleId" id="roleId" style="min-width:100px; min-height: 40px" ></select></td>
+		    </tr>
+		    <tr>
+		    	<td><button type="button" class="primary-btn" id="createUsrBtn">Create</button></td>
+		    	<td style="width:40px;"></td>
+		    	<td><button type="button" class="primary-btn" id="closeUsrBtn">Close</button></td>
+		    </tr>
+		    </table>
+      	</div>
+    </div>
+</div>
+    
+    <script type="text/javascript">
+    	jQuery(function () {
+    		
+    		ClassEdgeFn.callAjax("/tce-auth-api/1/api/1/admin/organizations",null,
+    				{	httpMethod:'GET',
+    					targetFn : function(result){
+    								var txresult = $.map(result, function(item) { return { id: item.orgId, text: item.name }; });
+    								ClassEdgeFn.fillDD("#orgId",txresult,null);
+    							}
+    				});
+    		
+    		$('#orgId').on('change', function (e) {
+    		    var data = $('#orgId').select2('data');
+    		    console.log("dddd>",data[0].id);
+    		    ClassEdgeFn.callAjax("/tce-auth-api/1/api/1/admin/roles?orgId="+data[0].id,null,
+        				{	httpMethod:'GET',
+        					targetFn : function(result){
+        								var txresult = $.map(result, function(item) { return { id: item.roleId, text: item.name }; });
+        								ClassEdgeFn.fillDD("#roleId",txresult,null);
+        							}
+        				});
+    		});
+    		
+			jQuery('#createUsrBtn').on("click",function(){
+					
+					var orgdata = {
+							"userName" : document.getElementById("userName").value,
+							"password": document.getElementById("password").value,
+							"organization": $("#orgId").select2("val"),
+							"role": $("#roleId").select2("val")
+						}
+					
+					console.log("--",orgdata);
+	        		ClassEdgeFn.callAjax("/tce-auth-api/1/api/1/admin/user",JSON.stringify(orgdata),
+	            				{  targetFn : function (result) { 
+		            					alert("successfully created user"); 
+		            					console.log( "My user = ", result);
+		            					ClassEdgeFn.loadMenu('/tce-auth-api/1/api/1/tool/placeholder','/adminedge/static/core/userlist.html');
+		            					ClassEdgeFn.closeDialog();
+	            					} 
+	        					}
+	            	);
+	         });
+			
+			jQuery('#closeUsrBtn').on("click",function(){ 
+				ClassEdgeFn.closeDialog();
+			});
+         }); 
+	</script>

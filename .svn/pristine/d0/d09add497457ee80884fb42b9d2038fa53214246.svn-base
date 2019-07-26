@@ -1,0 +1,207 @@
+/*Button*/
+.login-button {
+	FONT-FAMILY: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	position: relative;
+	left: 0px;
+}
+
+#button span {
+	display: block;
+	float: left;
+	background: url(images/buttonv1/btn_midd.png);
+	background-repeat: repeat-x;
+	height: 27px;
+	text-decoration: none;
+}
+
+#button  b {
+	display: block;
+	float: left;
+	background: url(images/buttonv1/btn_right.png);
+	background-repeat: no-repeat;
+	width: 5px;
+	height: 27px;
+	text-decoration: none;
+}
+
+#button a {
+	line-height: 35px; /*equal to the height of the button*/
+	cursor: hand;
+	text-decoration: none;
+}
+
+#button em {
+	display: block;
+	float: left;
+	background: url(images/buttonv1/btn_left.png);
+	background-repeat: no-repeat;
+	width: 5px;
+	height: 27px;
+	text-decoration: none;
+}
+
+.detailInfoFont {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #000000;
+	font-size: 12px;
+}
+
+.titleBand {
+	font-family: Arial, Helvetica, sans-serif;
+	background: #D7DF01;
+	font-size: 14px;
+}
+
+.toolsHeadingFont {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #8C6845;
+	font-size: 16px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+
+
+<!-- common css headers-->
+.resouses_darkbluetop {
+	background: url(images/portletv1/topbg.png) no-repeat left top;
+	width: 924px;
+	height: 29px;
+	font-size: 18px;
+	color: #fff;
+	font-weight: bold;
+	padding: 10px 0 0 18px;
+}
+
+.resourse_bg {
+	background: url(images/portletv1/bg.png) repeat-y left top;
+	width: 902px;
+	float: left;
+	min-height: 450px;
+	padding: 20px;
+}
+
+.resourse_bottom {
+	background: url(images/portletv1/bottombg.png) no-repeat left
+		top;
+	width: 943px;
+	height: 10px;
+	float: left;
+}
+
+.resourse_bg .black13 {
+	font-size: 13px;
+	color: #3f3f3f;
+	font-weight: bold;
+	padding: 0 0 9px 0;
+	float: left;
+}
+
+.resouses_darkbluetop {
+	background: url(images/portletv1/topbg.png) no-repeat left top;
+	width: 924px;
+	height: 29px;
+	font-size: 18px;
+	color: #fff;
+	font-weight: bold;
+	padding: 10px 0 0 18px;
+}
+
+.resouses_lightbluetop {
+	background: url(images/portletv1/topbg_lightblue.png) no-repeat
+		left top;
+	width: 924px;
+	height: 38px;
+	padding: 2px 0 0 18px;
+}
+
+/* Globallike Detailsbutton*/
+.cancelButton span {
+	background: url(images/buttonv2/button_left.png) no-repeat 0 0;
+	display: block;
+	line-height: 10px;
+	padding: 5px 0 8px 10px;
+	color: #fff;
+	font-size: 12px;
+}
+
+.cancelButton {
+	background: url(images/buttonv2/button_right.png) no-repeat top right;
+	display: block;
+	float: left;
+	height: 23px;
+	padding-right: 12px;
+	text-decoration: none;
+	font-size: 11px;
+	margin: 0px 8px 0 0;
+	text-shadow: 0 1px 1px #386c99, 0 1px 1px rgba(19, 92, 153, 0.35);
+	cursor : pointer;
+}
+
+.cancelButton:hover span {
+	background: url(images/buttonv2/button_left.png) no-repeat 0
+		0;
+	color: #fff;
+}
+
+.cancelButton:hover {
+	background: url(images/buttonv2/button_right.png) no-repeat
+		top right;
+}
+
+/* Globallike Detailsbutton*/
+
+.divSeperator {
+	background: url(images/portletv1/resoursebg.png) repeat-x left
+		top #e7f4ff;
+	border: 1px solid #cbddf0;
+	float: left;
+	font-size: 12px;
+	color: #4c4c4c;
+	padding: 5px;
+	width: 892px;
+	-moz-border-radius: 3px; /* firefox mozilla*/
+	-webkit-border-radius: 3px; /*safari, chrome*/
+	border-radius: 3px; /*opera*/
+	margin: 0 0 5px 0;
+}
+
+span.checked{ background:url(images/checkboxbg.png) no-repeat left top !important; width:20px; height:15px; display:block; float:left; }
+span.unchecked{ background:url(images/checkboxbg.png) no-repeat left -24px !important; width:20px; height:15px; display:block; float:left; }
+
+.ce-asteriskFont {background-image: url(images/required.gif); background-repeat: no-repeat;  background-position: right top; padding-right: 10px;}
+.ce-pageTitleAdminFont {font-family:Arial, Helvetica, sans-serif; color:#666666; font-size:16px; font-weight:bold; }
+.ce-greyHorizontalLine {background-image:url(images/greyline_shim.jpg); background-repeat:repeat-x; }
+.ce-greyVerticalLine { background-image:url(images/greyline_shim.jpg); background-repeat:repeat-y; }
+
+.notificationbox { background: none repeat scroll 0 0 #FFFCE0;border: 2px solid #FFF38D;line-height: 20px;padding: 10px 11px;}
+.notificationbox.nb13{ font-size:13px; color:#4c4c4c; text-decoration:none;}
+
+
+/*Display table css*/
+.ce-tableBand0 {background-color: #82CAFF;font-family: Arial, Helvetica, sans-serif;font-size: 12px;font-weight: bold;color: #FFFFFF;height: 25px;padding: 8px;}
+.ce-tableBand1 {background-color: #F4F6F1;font-family: Arial, Helvetica, sans-serif;font-size: 12px;height: 25px;}
+.ce-tableBand1 td { padding: 4px 6px 4px 4px;font-family: Arial;font-size: 12px;font-weight: Regular;color: #000000;}
+.ce-tableBand2 {background-color: #AFEEEE;font-family: Arial, Helvetica, sans-serif;font-size: 12px;height: 25px;}
+.ce-tableBand2 td { padding: 4px 6px 4px 4px;font-family: Arial;font-size: 12px;font-weight: Regular;color: #000000;}
+
+th.sortable a {	background-position: right;	background-repeat: no-repeat;	padding-right: 15px;color: #ffffff;	text-decoration: none;}
+th.sortable a { background-image: url(/ce-static/images/common/sort.jpg);}
+th.order1 a {background-image:url(/classedge-theme/images/sisimages/my_presentation_down.png);}
+th.order2 a {background-image:url(/classedge-theme/images/sisimages/my_presentation_arrow.png);}
+.tableBand0 {background-color: #9DB382;	font-family: Arial, Helvetica, sans-serif;	font-size: 12px;font-weight: bold;color: #FFFFFF;height: 25px;}
+.tableBand1 {background-color: #F4F6F1;	font-family: Arial, Helvetica, sans-serif;	font-size: 12px;height: 25px;}
+.tableBand2 {background-color: #E2E8DA;	font-family: Arial, Helvetica, sans-serif;	font-size: 12px;height: 25px;}
+.tableBand3 {background-color: #F4F6F1;	font-family: Arial, Helvetica, sans-serif;	font-size: 12px;font-weight: bold;}
+
+/* --- */
+/* popup menu for classedge  */
+.ce-popupmenu {	display: none;	position: absolute;	background-color: white;	padding: 5px; }
+.ce-popupmenu ul {	list-style: none;	margin: 0;	padding: 0;	width: 8em;}
+.ce-popupmenu a { font: bold 11px/16px arial, helvetica, sans-serif; text-decoration: none; color: #000;margin: 0;background: #efefef;
+	display: block; border-width: 1px; border-style: solid; border-color: #ccc #888 #555 #bbb;padding: 2px 3px; }
+.ce-popupmenu a:hover {	color: #a00; background: #fff;}
+#p_LessonplanManagement_WAR_ceportallessonplan {display: none}

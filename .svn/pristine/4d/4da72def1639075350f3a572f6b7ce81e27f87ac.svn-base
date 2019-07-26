@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ClassEdge</title>
+        <link rel="stylesheet" type="text/css" href="/adminedge/static/ui-theme-01/css/jquery-ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="/adminedge/static/ui-theme-01/css/global.css" />
+        <link rel="stylesheet" type="text/css" href="/adminedge/static/common/css/animated.css" />
+        <link rel="stylesheet" type="text/css" href="/adminedge/static/auth/login.css" />
+        <script type="text/javascript" src="/adminedge/static/common/js/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="/adminedge/static/ui-theme-01/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/adminedge/static/common/js/jsrender.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/adminedge/static/common/js/tce.custom.js" charset="utf-8"></script>        
+    </head>
+    <body>
+    <!-- Page PreLoader -->
+    <div id="preloader"></div>
+    
+    <div class="loginsec" id="gradient">
+        <div class="login-inner">
+            <div class="login-innersec">
+                <p class="logosec"><img src="images/logo.png" alt="Logo"/></p>
+                <form name="signinform">
+                    <div class="field-wrapper">
+                        <label for="sname">School Name</label>
+                        <input name="sname" placeholder="School Name" id="sname"/>
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="uname">Username</label>
+                        <input name="uname" placeholder="Username" id="username"/>
+                    </div>
+                    <div class="field-wrapper">
+                        <label for="pwd">Password</label>
+                        <input name="pwd" type="password" placeholder="Password" id="password"/>
+                    </div>
+                    <button type="button" class="primary-btn" id="signinBtn">Submit</button>
+                </form>
+                <a href="javascript:void(0)" class="linktext" id="registerBtn">Register</a>
+            </div>
+        </div>     
+    </div>
+    <script type="text/javascript">
+        jQuery(function () {
+           
+            ClassEdgeFn.cleartoken();
+            
+            ClassEdgeFn.callAjax("/tce-auth-api/0/api/1/sso/clientid",null,
+            			{ httpMethod:'GET',
+            				targetFn : function (data) { 
+            							localStorage.setItem("apiVersion",data.apiVersion);
+            							localStorage.setItem("sessionTimeout",data.sessionTimeout);
+            						}}
+            );   
+            localStorage.setItem("logger",true); 
+            
+            jQuery('#sname')			
+				.autocomplete({ 
+					 source: function( request, response ) {
+									 ClassEdgeFn.callAjax("/tce-auth-api/0/api/1/admin/organizations/"+request.term,null,
+						            			{ httpMethod:'GET',
+						            				targetFn : function (retdata) { 
+						            							var finalData = jQuery.map(retdata.suggestions, function(item) {	 		
+											 	    							return {
+											 	    								label:item,
+											 	    								value:item	   
+																				}	 		   
+						 										});
+																response( finalData );
+						            						}
+									 			}
+						            ); 		
+					},
+					minLength: 3
+				});
+            
+            // Preloader Before the build loads
+            $(window).on('load', function(){
+                $('#preloader').delay(500).fadeOut('slow'); // will fade out the white DIV that covers the website.
+                $('body').delay(200).css({'overflow':'visible'});
+            });
+
+            
+            
+            //Input click classadding
+            $('.inputstyle').on('click',function(){
+                $('.login-innersec').addClass('shake');
+            });
+            $('.loginbtn').on('click',function(){
+                $('.login-innersec').addClass('fadeOutDown');
+            });
+
+               
+            jQuery('#signinBtn').on("click",function(){
+                
+                var orgName = "not-set";
+                if(document.getElementById("sname").value != null) {
+                	orgName = document.getElementById("sname").value;
+                }
+                orgName = orgName + "#";
+                var data = {
+                	    "grant_type": "password",
+                	    "organization":"classedge-school",
+                	    "username": orgName + document.getElementById("username").value,
+                	    "password":document.getElementById("password").value
+                	    
+                	  };
+                
+                ClassEdgeFn.callAjax("/tce-auth-api/0/api/1/sso/token",data,
+            			{ 	headerFn : ClassEdgeFn.noHeader,
+                			targetFn : function (result) { 
+		                				localStorage.setItem("token",result.access_token);
+			                            localStorage.setItem("rtoken",result.refresh_token);
+			            				console.log( "My Access token = "+ result.access_token);
+			                            console.log( "My refresh token = "+ result.refresh_token);
+			                            console.log("expires in = "+result.expires_in)
+			                            
+			                            //TODO need to handle how to store token.. location href not allowing it to do so hence alert
+			                           
+			                            location.href = "/adminedge/static/admin/admin.html";
+            						}
+                		}); 
+            });
+            
+            jQuery('#registerBtn').on("click",function(){
+                location.href = "/ce-core-app/0/web/1/auth/register.html";
+            });
+
+        });
+    </script>
+    </body>
+</html>

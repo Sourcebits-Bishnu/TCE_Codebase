@@ -1,0 +1,140 @@
+<script>
+jQuery(function () {
+	var Upload = function (file) {
+	    this.file = file;
+	};
+	
+	Upload.prototype.getType = function() {
+	    return this.file.type;
+	};
+	Upload.prototype.getSize = function() {
+	    return this.file.size;
+	};
+	Upload.prototype.getName = function() {
+	    return this.file.name;
+	};
+	Upload.prototype.doUpload = function (submitUrl) {
+	    var that = this;
+	    var formData = new FormData();
+	
+	    // add assoc key values, this will be posts values
+	    formData.append("lpFile", this.file, this.getName());
+	    formData.append("upload_file", true);
+	
+	    $.ajax({
+	        type: "POST",
+	        url: submitUrl,
+	        xhr: function () {
+	            var myXhr = $.ajaxSettings.xhr();
+	            if (myXhr.upload) {
+	                myXhr.upload.addEventListener('progress', that.progressHandling, false);
+	            }
+	            return myXhr;
+	        },
+	        success: function (content) {
+	        	var htmlData;			
+				try {
+					if (Object.prototype.toString.call(content) === '[object Object]') {
+						htmlData = content;
+					} else {					
+						htmlData = JSON.parse(content);					
+					}
+				} catch (e) {
+					
+					//check if portlet error
+					if(content.indexOf('</div>') != -1) {
+						htmlData = new Object();
+						htmlData.statusMsg = "An error has occured";
+					} else {
+						//this may happen in lower version
+						htmlData = JSON.parse(content);
+					}
+				}
+				$('#exeStatus').html(htmlData.statusText);
+				var hideDiv =document.getElementById("progress-wrp");
+				var showDiv =document.getElementById("uploadStatus");
+				hideDiv.style.display ='none';
+				showDiv.style.display ='inline-block';
+				
+	        },
+	        error: function (error) {
+	        	var htmlData = JSON.parse(error.responseText);	
+	        	$('#exeStatus').html(htmlData.statusText);
+				var hideDiv =document.getElementById("progress-wrp");
+				var showDiv =document.getElementById("uploadStatus");
+				hideDiv.style.display ='none';
+				showDiv.style.display ='inline-block';
+	        },
+	        async: true,
+	        data: formData,
+	        cache: false,
+	        contentType: false,
+	        processData: false,
+	        timeout: 60000
+	    });
+	};
+	
+	Upload.prototype.progressHandling = function (event) {
+	    var percent = 0;
+	    var position = event.loaded || event.position;
+	    var total = event.total;
+	    var progress_bar_id = "#progress-wrp";
+	    if (event.lengthComputable) {
+	        percent = Math.ceil(position / total * 100);
+	    }
+	    // update progressbars classes so it fits your code
+	    $(progress_bar_id + " .progress-bar").css("width", +percent + "%");
+	    $(progress_bar_id + " .status").text(percent + "%");
+	};
+	
+		
+	$("#lpFile").on("change", function (e) {
+	    var file = $(this)[0].files[0];
+	    var upload = new Upload(file);
+	
+	    var hideDiv =document.getElementById("uploadDiv");
+		var showDiv =document.getElementById("progress-wrp");
+		hideDiv.style.display ='none';
+		showDiv.style.display ='inline-block';
+	    // execute upload
+	    upload.doUpload('{{:uploadUrl}}');
+	});
+	
+	{{if customDesc != ''}} 
+	callAjax('#customdesc','{{:customDesc}}',null);
+	{{/if}}
+});
+</script>
+<style>
+#progress-wrp {
+    border: 1px solid #0099CC; padding: 1px; position: relative; height: 30px; border-radius: 3px; margin: 10px;
+    text-align: left; background: #fff; box-shadow: inset 1px 3px 6px rgba(0, 0, 0, 0.12);
+}
+#progress-wrp .progress-bar{
+    height: 100%; border-radius: 3px; background-color: #f39ac7; width: 0;
+    box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.11);
+}
+#progress-wrp .status{
+    top:3px;  left:50%;  position:absolute;  display:inline-block;  color: #000000;
+}
+</style>
+<div id="uploadDiv" >
+<form id="popupImportForm" name="popupImportForm" method="post" enctype="multipart/form-data">
+	<table style="width:100%" class="ce-tableBand1">
+		<tr><td colspan="2"><div id="customdesc"></div></td></tr>
+		<tr>
+			<td class="">File:</td>
+			<td><input type="file" name="lpFile" id="lpFile" style="height: 30px;"></td>
+		</tr>
+		<tr><td height="20px"></td></tr>		
+	</table>
+</form>
+</div>
+<div id="progress-wrp" style="display:none;width:80%">
+    <div class="progress-bar"></div>
+    <div class="status">0%</div>
+</div>
+<div id="uploadStatus" style="display:none">
+<div><h4 style="padding-top: 5px;text-overflow: clip;color: #FE6700;" id="exeStatus"></h4></div>
+<div class="clearBoth"></div>
+</div>

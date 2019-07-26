@@ -1,0 +1,31 @@
+{
+    "name": "Root",
+    "url": "javascript:void();",
+    "permission": null,
+    "submenu": [{
+            "name": "Manage",
+		    "url": "javascript:void();",
+		    "permission": {"context":"Left Menu","privilege" : "Manage"},
+            "submenu": [{
+                    "name": "Users",
+				    "url": "javascript:ClassEdgeFn.loadMenu('/tce-auth-api/1/api/1/tool/placeholder','/adminedge/static/core/userlist.html');",
+				    "permission": {"context":"Users","privilege" : "VIEW_USER"}
+                },{
+                    "name": "School",
+				    "url": "javascript:ClassEdgeFn.loadMenu('/tce-auth-api/1/api/1/tool/placeholder','/adminedge/static/core/organizationList.html');",
+				    "permission": {"context":"Organization","privilege" : "VIEW_ORG"}
+                }
+            ]
+        }, {
+             "name": "About",
+		    "url": "javascript:void();",
+		    "permission": {"context":"Left Menu","privilege" : "About"}, 
+            "submenu": [{
+                    "name": "Build Details",
+				    "url": "javascript:void();",
+				    "permission": null
+                }
+            ]
+        }
+    ]
+}

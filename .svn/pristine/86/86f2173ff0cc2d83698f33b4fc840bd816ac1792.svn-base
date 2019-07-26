@@ -1,0 +1,20 @@
+<script type="text/javascript">
+
+function submit(submitUrl){
+	document.getElementById('popHome').action = submitUrl;
+	document.getElementById('popHome').submit();
+	closeDialog();
+}
+</script>
+
+<form name="popHome" id="popHome" method="post">
+<table>
+<tr height="20px"></tr>
+<tr>
+  <td width="83px"></td>
+  <td><a href="javascript:submit('/delegate/fileservice/temp/{{:filePath}}');" class="cancelButton"><span> &nbsp;&nbsp;Download File&nbsp;&nbsp;</span></a></td>
+  <td><a href="javascript:closeDialog();" class="cancelButton"><span> &nbsp;&nbsp;Cancel&nbsp;&nbsp;</span></a></td>
+  <td width="20px"></td>
+</tr>
+</table>
+</form>

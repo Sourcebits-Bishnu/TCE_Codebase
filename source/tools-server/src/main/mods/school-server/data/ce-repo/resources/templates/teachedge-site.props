@@ -1,0 +1,106 @@
+{    
+    "version": "100",
+    "organization": {"name": "TeachEdge",
+					"orgId":"teachedge-in"},
+    "roleList": [{
+            "name": "ClassEdge Admin",
+            "description": "Admin User for TeachEdge.",
+            "properties": {
+                "createdFor": "CLASSEDGE SITE ROLE",
+                "defaultRole": "Classedge User"
+            },
+            "type": "global"
+        },{
+            "name": "School Admin",
+            "description": "Admin User for TeachEdge.",
+            "properties": {
+                "createdFor": "CLASSEDGE SITE ROLE",
+                "defaultRole": "Classedge User"
+            },
+            "type": "organization"
+        }, {
+            "name": "Teacher",
+            "description": "Teacher User",
+            "properties": {
+                "createdFor": "CLASSEDGE SITE ROLE"
+            },
+            "type": "organization"
+        }
+    ],
+    "permList": [{            
+            "context": "ClassEdge",
+			"privilege": ["VIEW"],
+            "roles": [{
+                    "name": "ClassEdge Admin",
+                    "type": "organization"
+                },{
+                    "name": "Teacher",
+                    "type": "organization"
+                },{
+                    "name": "School Admin",
+                    "type": "organization"
+                }
+            ],
+            "properties": {
+                "availableOn": "all"
+            },
+            "pageOrder": "1"
+        },{            
+            "context": "Left Menu",
+			"privilege": ["Manage","About"],
+            "roles": [{
+                    "name": "ClassEdge Admin",
+                    "type": "organization"
+                },{
+                    "name": "School Admin",
+                    "type": "organization"
+                }
+            ],
+            "properties": {
+                "availableOn": "all"
+            },
+            "pageOrder": "1"
+        }, {            
+            "context": "Users",
+			"privilege": ["VIEW_USER","MODIFY_USER"],
+            "roles": [{
+                    "name": "ClassEdge Admin",
+                    "type": "organization"
+                },{
+                    "name": "School Admin",
+                    "type": "organization"
+                }
+            ],
+            "properties": {
+                "availableOn": "all"
+            },
+            "pageOrder": "1"
+        }, {            
+            "context": "Organization",
+            "privilege": ["VIEW_ORG","MODIFY_ORG"],
+			"roles": [{
+                    "name": "ClassEdge Admin",
+                    "type": "organization"
+                }
+            ],
+            "properties": {
+                "availableOn": "all"
+            },
+            "pageOrder": "1"
+        }, {            
+            "context": "Organization",
+            "privilege": ["VIEW_ORG"],
+			"roles": [{
+                    "name": "School Admin",
+                    "type": "organization"
+                }
+            ],
+            "properties": {
+                "availableOn": "all"
+            },
+            "pageOrder": "1"
+        }
+
+    ]
+
+}

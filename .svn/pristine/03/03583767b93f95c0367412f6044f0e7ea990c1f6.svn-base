@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ClassEdge</title>
+        <link rel="stylesheet" type="text/css" href="/adminedge/static/common/css/normalize.css" />
+        <link rel="stylesheet" type="text/css" href="/adminedge/static/common/css/skeleton.css" />
+		<link rel="stylesheet" type="text/css" href="/adminedge/static/common/css/custom.css" />
+        <link rel="stylesheet" type="text/css" href="/adminedge/static/ui-theme-01/css/jquery-ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="/adminedge/static/common/css/select2.min.css" />
+        <script type="text/javascript" src="/adminedge/static/common/js/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="/adminedge/static/ui-theme-01/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/adminedge/static/common/js/jsrender.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/adminedge/static/common/js/jquery.simplemodal.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/adminedge/static/common/js/select2.min.js"></script>
+        <script type="text/javascript" src="/adminedge/static/common/js/tce.custom.js" charset="utf-8"></script>   
+        <style type="text/css">
+        .pagetitlebg{background:#caccce;padding:10px 15px;margin:5px 0 10px;}
+        .pagetitle{font-family: 'open_sansbold', sans-serif;float:left;text-transform:uppercase;}
+        .mt10{margin-top:10px !important;}
+        </style>     
+    </head>
+    <body class="ce-body">
+	<div id="header"></div>
+	<div class="container">
+	    <div class="row">	    	
+	      	<div class="twelve column">
+	        	<div class="pagetitlebg mt10 clearfix" style="min-height: 40px">
+		    		<p class="pagetitle" id="pagetitle">Dashboard</p>
+		    	</div>
+	      	</div>
+	    </div>
+  	</div>
+  
+	  <!--BO mainContent -->
+	  <div class="ce-wrapper">
+	    <div class="mainContent" id="mainContent"></div>
+      </div>
+      <!--EO mainContent -->
+		<div class=" clearfix"></div>
+	
+    
+    <script type="text/javascript">
+        jQuery(function () {
+        	setInterval(ClassEdgeFn.extendSession, 240000);
+        	
+        	ClassEdgeFn.callAjax("/tce-auth-api/1/api/1/admin/current",null,
+        			{ httpMethod:'GET',
+        				targetFn : function (result) { 
+        						ClassEdgeFn.renderHtml(result,"#header",{template:'/adminedge/static/common/html/menu.html'});
+        						}
+        			}
+        	);
+        	
+			
+			jQuery('#createUsrBtn').on("click",function(){
+				var settings = {
+	                    width : 400, height : 300, title : "Create",
+	                    template:'/adminedge/static/core/user.html',
+	                    apiProps : {httpMethod:'GET'}
+	                };
+	            ClassEdgeFn.showDialog("/tce-auth-api/1/api/1/tool/placeholder",null,settings);
+				
+            });
+        });
+    </script>
+    </body>
+</html>

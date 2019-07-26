@@ -1,0 +1,121 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>tools-server</artifactId>
+    <name>tools-server</name>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>com.tce</groupId>
+        <artifactId>classedge</artifactId>
+        <version>0.1.0</version>
+    </parent>
+	
+
+    <dependencies>
+
+	</dependencies>
+    
+    <build>
+    	<finalName>${project.artifactId}</finalName>
+        <plugins>
+			<plugin>
+		        <artifactId>maven-antrun-plugin</artifactId>		        
+		        <inherited>false</inherited>
+		        <dependencies>
+					<dependency>
+			            <groupId>ant-contrib</groupId>
+			            <artifactId>ant-contrib</artifactId>
+			            <version>1.0b3</version>
+			            <exclusions>
+					      <exclusion>
+					        <groupId>ant</groupId>
+					        <artifactId>ant</artifactId>
+					      </exclusion>
+					    </exclusions>
+		        	</dependency>	                
+	            </dependencies>
+		        <executions>
+		          <execution>
+		          	<id>setup-server</id>
+		          	<phase>package</phase>		             
+		            <configuration>
+		              <target>
+					  	
+						<echo message=" setting up '${server.type}'" />
+						
+						<tstamp>
+						    <format property="currtime" pattern="d-MMMM-yyyy-hh-mm" locale="en,UK"/>
+						</tstamp>
+				
+						<condition property="dir.exists">
+					    	<available file="${project.dir}\stagging\${server.type}" type="dir"/>
+					    </condition>
+					    <echo message="${dir.exists}" />
+					    
+					    <ac:if xmlns:ac="antlib:net.sf.antcontrib">
+					    	<equals arg1="${dir.exists}" arg2="true" />
+					    	<then>
+					    		<echo message=">>> backing up previous folder" />
+								<move todir="${project.dir}\stagging\${server.type}-${currtime}" failonerror="false">
+									<fileset dir="${project.dir}\stagging\${server.type}"/>
+								</move>
+					    	</then>
+					    </ac:if>
+					    
+						<mkdir dir="${project.dir}\stagging\${server.type}"/>
+						
+						<unzip src="${basedir}/src/main/setup/apache-tomcat-9.0.20.zip"
+		       						dest="${project.dir}\stagging\${server.type}"/>
+		       			
+		       			<move todir="${project.dir}\stagging\${server.type}\tomcat">
+						  <fileset dir="${project.dir}\stagging\${server.type}\apache-tomcat-9.0.20"/>
+						</move>
+		       			
+		       			<copy todir="${project.dir}\stagging\${server.type}" failonerror="false">
+							<fileset dir="${basedir}/src/main/mods/${server.type}"/>
+						</copy>
+		
+		              </target>
+		            </configuration>
+		            <goals>
+		              <goal>run</goal>
+		            </goals>
+		          </execution>
+				  
+		        </executions>
+		      </plugin>           
+        </plugins>
+    </build>
+    
+    <profiles>
+		<profile>
+	       <id>tce-school</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-install-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>tce-core-service-jar</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>install-file</goal>
+								</goals>
+								<configuration>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>tce-core-service</artifactId>
+									<version>${project.parent.version}</version>
+									<packaging>jar</packaging>
+									<file>${project.dir}/tce-repo/tce-core-service.jar</file>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>		
+		</profile>
+	</profiles>
+
+</project>

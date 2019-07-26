@@ -1,0 +1,152 @@
+<header class="header">
+<div class="container">
+    <div class="row">
+      	<div class="twelve columns">
+        	<div class="user-title">{{:fullName}}</div>
+      	</div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+    	<div class="two columns">
+    		<ul class="logo-leftmenu">
+	           	<li><a class="classedgelogo" href="javascript:PopupCenter('http://www.tataclassedge.com',400,400);">
+				<img src="/adminedge/static/common/css/images/logo.png" alt="ClassEdge" style="width: 100%;"/></a></li>
+	           	{{!--
+				#topnav( $position $nav_items )
+				--}}
+           </ul>
+    	</div>
+    	<div class="seven columns">&nbsp;</div>
+      	<div class="three columns">        	
+        	<ul class="rightmenu">
+           	<li>
+                   <div class="badge-list clearfix">
+                       <!-- Points Achieved -->
+                       <p><span>{{:points}}</span> Points</p>
+                       <!-- Badges Acheived -->
+                       <div class="badge-achieved">
+                          <ul class="clearfix">
+                              <li>
+                              		<img src="$badge" alt="" />
+                              </li>
+                          </ul>
+                       </div>
+                   </div>
+               </li>
+               <li>
+				<p class="otheroptions"><span></span></p>
+                   <div class="otheroptions-flyout">
+                       <ul class="otheroptions-list"> 
+                       	<li><a id="testBtn" ><span></span>Test</a></li>  
+                       	<li><a id="refreshBtn" ><span></span>Refresh</a></li>                       	                            
+						{{!--
+						#usernav( $position $nav_items )
+						--}}                            
+						{{if showSwitch  == true}} 
+						<li><a href="javascript:showSwitch();" ><span class="switch"></span>Switch</a></li>
+						{{/if}}
+                       </ul>
+                       <ul class="otheroptions-list">
+                           <li><a href="javascript:PopupCenter('http://www.tataclassedge.com',400,400);"><span class="about"></span>About</a></li>
+                           <li><a href="javascript:PopupCenter('/ce-static-help/ClassEdge_Portal_Help.htm',600,400);"><span class="help"></span>Help</a></li>
+                           <li><a href="javascript:PopupCenter('/ce-static-guide/index.html',600,400);"><span class="troubleshoot"></span>Troubleshoot</a></li>
+		    			<!-- <li><a href="/group/${orgUrl}/complaints"><span class="complaint"></span>Complaints</a></li> -->
+                           <li><a href="javascript:PopupCenter('/ce-static/html/common/contact_us.html',400,400);"><span class="contact"></span>Contact</a></li>
+                       </ul>
+                        <ul class="otheroptions-list">
+                           <li><a id="logoutBtn"><span class="logout"></span>Logout</a></li>
+                       </ul>
+                   </div>
+               </li>
+           </ul>
+      	</div>
+    </div>
+</div>
+</header>
+
+<section class="menudarkbg">
+<div class="container">
+    <div class="row">
+      	<div class="twelve columns">
+      				<div class="clearfix">
+			    	<div class="menuleft"><ul class="settingmenu" style="margin-bottom: 0px; ">
+					{{for menuoptions.submenu itemVar='~val'}}
+					<li><a class="{{if selectedmenu  == ~val.name}}active{{/if}}" href="{{:~val.url}}">{{:~val.name}}</a>
+						{{if ~val.submenu.length  != 0}}
+						<ul style="list-style: none;">
+							{{for ~val.submenu itemVar='~ival'}}			
+							<li><a href="{{:~ival.url}}" >{{:~ival.name}}</a></li>
+							{{/for}}
+						</ul>
+						{{/if}}
+				    </li>		
+					{{/for}}
+			   	   </ul>
+			   	 	</div>
+			   	 	</div>
+      	</div>
+    </div>
+</div>
+</section>
+
+<script type="text/javascript">
+	jQuery(function () {
+
+		$('.otheroptions').on('click',function(){
+			$(this).toggleClass('selected');
+			$('.otheroptions-flyout').slideToggle();
+		});
+		$(document).click(function(e){
+			var p = $(e.target).closest('.header, .header2').length
+			if (!p) {
+				$(".otheroptions-flyout").slideUp();
+				$('.otheroptions').removeClass('selected');
+			}
+		});
+		
+		jQuery('#testBtn').on("click",function(){
+    		var data = {'schoolId' : 'test'};
+    		ClassEdgeFn.callAjax("/tce-teach-api/1/api/{version}/curriculum/book/book-009e4be8-2424-4d29-8431-5d5c72306e30",null,
+        			{ httpMethod:'GET',
+        				targetFn : function (result) { alert(result); console.log( "My curriculum = "+ result);}}
+        	);
+        });
+    	
+    	jQuery('#refreshBtn').on("click",function(){
+    		var data = {
+            	    "grant_type": "refresh_token",
+            	    "access_token":localStorage.token,
+            	    "refresh_token":localStorage.rtoken
+            	  }  
+    		ClassEdgeFn.callAjax("/tce-auth-api/0/api/1/sso/token",data,
+        			{ 	headerFn : ClassEdgeFn.noHeader,
+            			targetFn : function (result) { 
+		            				console.log( "Renewed Access token = "+ result.access_token);
+		                            console.log( "Renewed refresh token = "+ result.refresh_token);			                        
+		                            localStorage.setItem("token",result.access_token);
+        						}
+            		}); 
+    		
+        });
+		
+		jQuery('#logoutBtn').on("click",function(){
+    		
+    		ClassEdgeFn.callAjax("/tce-auth-api/1/api/1/sso/revoke/"+localStorage.rtoken,null,
+        			{  httpMethod:'DELETE',
+        				targetFn : function (result) { console.log( "My curriculum = "+ result); location.href = "/"}}
+        	);
+        });
+	});
+	
+	
+	ClassEdgeFn.loadMenu = function (apiurl,renderurl){
+		ClassEdgeFn.callAjax(apiurl,null,
+    			{ httpMethod:'GET',
+    				targetFn : function (result) { 
+    						ClassEdgeFn.renderHtml(result,"#mainContent",{template:renderurl});
+    						}
+    			}
+    	);
+	}
+</script>
